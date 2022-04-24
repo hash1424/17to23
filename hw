@@ -1,0 +1,482 @@
+
+package HW_Geekster;
+
+import java.util.Arrays;
+
+public class hw_19_April {
+
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+
+			int a[] = {6,3,1,4,5,1,3,7,0,2,4};
+
+			int start = 0;
+			int end = a.length-1;
+
+			System.out.println("Before sort : "+Arrays.toString(a));
+			quickSort(a,start,end);
+			System.out.println("After sort : "+Arrays.toString(a));
+
+
+		}
+
+		private static void quickSort(int[] a, int start, int end) {
+
+			if(start > end)
+			{
+				return;
+			}
+
+			else
+			{
+				//divide
+				int pI = partition(a,start,end);
+
+				//left array
+				quickSort(a,start,pI-1);
+
+				//right array
+				quickSort(a,pI+1,end);
+			}
+
+		}
+
+		private static int partition(int[] a, int start, int end) {
+
+			int pivot = end;
+
+			int pI = start; //PI -> what is the index where the partition has to happen?
+
+			for(int j =start;j<end;j++)
+			{
+				//Now check if the jth element is smaller or equal to pivot
+				if(a[j] <= a[pivot])
+				{
+					//Swap between j and PI
+					int temp = a[j];
+					a[j] = a[pI];
+					a[pI] = temp;
+
+					pI++;
+				}
+			}
+
+			//at PI index, now place the pivot element.
+			//Swap pI and pivot
+
+			int temp = a[pI];
+			a[pI] = a[pivot];
+			a[pivot] = temp;
+
+			return pI;
+
+		}
+
+	}
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  	package HW_Geekster;
+
+import java.util.Arrays;
+
+public class hw_20_April {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int a[] = { 3, 4, 1, 6, 8, 2 };
+
+		int start = 0;
+		int end = a.length - 1;
+
+		mergeSort(a, start, end);
+
+		System.out.println(Arrays.toString(a));
+
+	}
+
+	private static void mergeSort(int[] a, int start, int end) {
+
+		if (start < end) {
+			int mid = (start + end) / 2;
+
+			mergeSort(a, start, mid);
+			mergeSort(a, mid + 1, end);
+			merge(a,start,end,mid);
+		}
+
+	}
+
+	private static void merge(int[] a, int start, int end, int mid) {
+
+		int i = start;
+		int j = mid +1;
+		int k = 0;
+
+		int b[] = new int[a.length];
+
+		while(i<=mid && j<=end)
+		{
+			if(a[i] <= a[j])
+			{
+				b[k] = a[i];
+				i++;
+				k++;
+			}
+
+			else
+			{
+				b[k] = a[j];
+				k++;
+				j++;
+			}
+		}
+			while(i>mid && j<=end)
+			{
+				b[k] = a[j];
+				k++;
+				j++;
+			}
+
+			while(j>end && i<=mid)
+			{
+				b[k] = a[i];
+				k++;
+				i++;
+			}
+
+
+			for (int m = start; m <= end; m++) {
+				a[m] = b[m-start];   
+
+
+			}
+
+	}
+
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+package HW_Geekster;
+
+import java.util.Arrays;
+
+public class hw_21_April {
+
+
+	public static void sortSquares(int arr[])
+    {
+        int n = arr.length;
+
+
+        for (int i = 0; i < n; i++)
+            arr[i] = arr[i] * arr[i];
+
+
+        Arrays.sort(arr);
+    }
+
+
+	public static void mergeArrays(int[] arr1, int[] arr2, int n1, int n2, int[] arr3){
+			int i = 0, j = 0, k = 0;
+
+
+			while (i<n1 && j <n2)
+			{
+
+				if (arr1[i] < arr2[j])
+					arr3[k++] = arr1[i++];
+				else
+					arr3[k++] = arr2[j++];
+			}
+
+			while (i < n1)
+				arr3[k++] = arr1[i++];
+
+			while (j < n2)
+				arr3[k++] = arr2[j++];
+			}
+
+	public static void main (String[] args)
+
+			{
+				int[] arr1 = {1, 3, 5, 7};
+				int n1 = arr1.length;
+
+				int[] arr2 = {2, 4, 6, 8};
+				int n2 = arr2.length;
+
+				int[] arr3 = new int[n1+n2];
+
+				mergeArrays(arr1, arr2, n1, n2, arr3);
+
+				System.out.println("Array after merging");
+				for (int i=0; i < n1+n2; i++)
+					System.out.print(arr3[i] + " ");
+
+
+
+	/*
+	LinkedList should be used where modifications to a collection
+	are frequent like addition/deletion operations. LinkedList is much 
+	faster as compare to ArrayList in such cases. In case of read-only
+	collections or collections which are rarely modified, ArrayList is suitable.
+
+	*/
+
+
+
+	int arr[] = { -6, -3, -1, 2, 4, 5 };
+    int n = arr.length;
+
+    System.out.println("Before sort ");
+    for (int i = 0; i < n; i++)
+        System.out.print(arr[i] + " ");
+
+    sortSquares(arr);
+    System.out.println("");
+    System.out.println("After Sort ");
+    for (int i = 0; i < n; i++)
+        System.out.print(arr[i] + " ");
+
+
+	}
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	package HW_Geekster;
+
+public class hw_22_April {
+
+	static Node head;
+
+
+	public static void addFirst(int data) {
+		Node newNode = new Node(data);
+
+		if(head==null) {
+			head=newNode;
+		}
+		else {
+
+		newNode.next=head;
+		head=newNode;
+		}
+	}
+
+	public static void addLast(int data) {
+		Node newNode = new Node(data);
+
+		if(head==null) {
+			head=newNode;
+			return;
+		}
+		Node cur = head;
+		while(cur.next !=null) {
+
+
+		cur=cur.next;
+		}
+
+		cur.next=newNode;
+	}
+
+
+	 public static  void removeFirst() {
+	       if(head == null) {
+	           System.out.println("Empty");
+	           return;
+	       }
+
+	       head = head.next;
+
+	   }
+
+
+
+
+	   public static void removeLast() {
+	       if(head == null) {
+	           System.out.println("Empty List, nothing to delete");
+	           return;
+	       }
+
+
+	       if(head.next == null) {
+	           head = null;
+	           return;
+	       }
+
+	       Node currNode = head;
+	       Node lastNode = head.next;
+	       while(lastNode.next != null) {
+	           currNode = currNode.next;
+	           lastNode = lastNode.next;
+	       }
+
+	       currNode.next = null;
+	   }
+
+	 public static void printMiddle()
+	    {
+	        Node first = head;
+	        Node last = head;
+
+	            while (last != null && last.next != null)
+	            {
+	            	last = last.next.next;
+	                first = first.next;
+	            }
+	            System.out.println("The middle " + first.data);
+
+	    }
+
+
+	   public static int count() {
+		   Node temp=head;
+		   int count = 0;
+		   while(temp!=null)
+		   {
+		    temp=temp.next;
+		    count++;  
+		   }
+		   return count;
+	   }
+
+
+
+	public static void print() {
+
+		int cnt = 0;
+
+		if(head==null) {
+			System.out.println("Empty");
+			return;
+		}
+		Node cur = head;
+
+		while(cur != null) {
+			System.out.print(cur.data+"->");
+
+			if(cur.data==3) {
+				System.out.println(cur);
+
+			}
+			cur=cur.next;
+		}
+
+		System.out.print("Null");
+		System.out.println();
+		System.out.println(cnt);
+	}
+
+
+
+	public static void main(String[] args) {
+
+		//LinkedList ll = new LinkedList();
+
+		addFirst(1);
+		addFirst(11);
+		addFirst(12);
+		addFirst(13);
+		addFirst(14);
+		addFirst(15);
+		addFirst(16);
+		addFirst(17);
+		addFirst(18);
+		addFirst(13);
+
+		addLast(20);
+
+
+		print();
+
+		System.out.println();
+
+		//removeFirst();
+		//print();
+
+		System.out.println();
+
+		removeLast();
+		print();
+
+		//System.out.println(count());
+
+		printMiddle();
+
+
+
+
+	}
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+package HW_Geekster;
+
+public class hw_23_April {
+
+
+	static Node head;
+
+
+	public static void addFirst(int data) {
+		Node newNode = new Node(data);
+
+		if(head==null) {
+			head=newNode;
+		}
+		else {
+
+		newNode.next=head;
+		head=newNode;
+		}
+	}
+	public static void print() {
+
+		int cnt = 0;
+
+		if(head==null) {
+			System.out.println("Empty");
+			return;
+		}
+		Node cur = head;
+
+		while(cur != null) {
+			System.out.print(cur.data+"->");
+
+			if(cur.next==5) {
+				System.out.println(cur.data);
+
+			}
+			cur=cur.next;
+		}
+
+		System.out.print("Null");
+		System.out.println();
+		System.out.println(cnt);
+	}
+
+
+
+	public static void main(String[] args) {
+
+
+
+		addFirst(10);
+		addFirst(20);
+		addFirst(20);
+		addFirst(40);
+		addFirst(50);
+		addFirst(60);
+		addFirst(70);
+
+
+		print();
+
+	}
+
+}
